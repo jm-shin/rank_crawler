@@ -1,10 +1,9 @@
-## Getting Started
+APP
+-
+##Command
+- npm start [option: melon, genie, bugs]  
+ex) npm start melon genie bugs  
+ex) npm start genie bugs  
+ex) npm start melon
 
-```js
-var Crawler = require("");
-
-var crawler = new Crawler("http://www.example.com/");
-```
-
-##command
-- npm start [option: melon, genie]
+- npm test
