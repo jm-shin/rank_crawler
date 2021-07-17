@@ -1,36 +1,34 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+const { collectRankFromMelon } = require('./src/melon');
+const { collectRankFromGenie } = require('./src/genie');
+const { collectRankFromBugs } = require('./src/bugs');
+const config = require('./config/configSite');
 
-const melon = require('./melon');
+const siteNames = process.argv.splice(2 , process.argv.length);
 
-const type = process.argv[2];
-
-const records = {
-    melon: {
-        url: 'https://www.melon.com/chart/index.htm',
-        scrap: {
-            name: '.ellipsis.rank01',
-            singer: '.ellipsis.rank02',
-            album: '.ellipsis.rank03',
-        }
-    },
-    genie: {
-        url: 'https://www.genie.co.kr/chart/top200',
-        scrap: {
-            name: 'a.title.ellipsis',
-            singer: 'a.artist.ellipsis',
-            album: 'a.albumtitle.ellipsis',
-        }
-    },
+const rankCrawler = async (siteNames) => {
+    console.log(siteNames);
+    if (!siteNames || siteNames.length === 0) {
+        console.error("Please enter. site name.");
+        return;
+    }
+    try {
+        console.log('enter!!');
+        await siteNames.forEach((site) => {
+           if (site === 'melon') {
+               collectRankFromMelon(config[site].url, config[site].query);
+           } else if (site == 'genie') {
+               collectRankFromGenie(config[site].url, config[site].query)
+                   .then((result) => console.log(result));
+           } else if (site == 'bugs') {
+               collectRankFromBugs(config[site].url, config[site].query)
+                   .then(result => console.log(result))
+           } else {
+               console.error("syntax error: Unavailable Sites.");
+           }
+        });
+    } catch (err) {
+        console.error(err);
+    }
 }
 
-const crawler = async () => {
-    const arr = await melon(records.melon.url, records.melon.scrap);
-    console.log(arr[0])
-    return arr[0];
-}
-
-crawler();
-
-
-
+rankCrawler(siteNames);

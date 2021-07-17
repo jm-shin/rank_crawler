@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const genie = async (url, scrap) => {
+const collectRankFromGenie = async (url, scrap) => {
     try {
         const RANK = 50;
         const response = await axios.get(url);
@@ -41,10 +41,11 @@ const genie = async (url, scrap) => {
                 }
                 rankArray.push(row);
             }
+
             return rankArray;
         }
     } catch (err) {
         console.error(err);
     }
 }
-module.exports = genie;
+module.exports.collectRankFromGenie = collectRankFromGenie;

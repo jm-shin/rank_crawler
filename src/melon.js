@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-const melon = async (url, scrap) => {
+const collectRankFromMelon = async (url, scrap) => {
     try {
         const response = await axios.get(url);
         if (response.status === 200) {
@@ -14,7 +14,6 @@ const melon = async (url, scrap) => {
             const html = response.data;
             const $ = cheerio.load(html);
 
-            //제목, 가수, 앪범
             const scraping = await Promise.all(
                 scrapValues.map((target, index) => {
                     const html = $(target);
@@ -39,6 +38,7 @@ const melon = async (url, scrap) => {
                acc.push(data);
                return acc;
             }, []);
+
             return rankArray;
         }
     } catch (err) {
@@ -46,4 +46,4 @@ const melon = async (url, scrap) => {
     }
 }
 
-module.exports = melon;
+module.exports.collectRankFromMelon = collectRankFromMelon;
