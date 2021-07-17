@@ -1,4 +1,4 @@
-const crawler = require('../src/melon').collectRankFromMelon;
+const crawler = require('../lib/melon').collectRankFromMelon;
 const config = require('../config/configSite').melon;
 
 describe('melon tests', () => {

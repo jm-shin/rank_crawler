@@ -1,7 +1,8 @@
-const { collectRankFromMelon } = require('./src/melon');
-const { collectRankFromGenie } = require('./src/genie');
-const { collectRankFromBugs } = require('./src/bugs');
 const config = require('./config/configSite');
+const logger = require('./lib/logger');
+const { collectRankFromMelon } = require('./lib/melon');
+const { collectRankFromGenie } = require('./lib/genie');
+const { collectRankFromBugs } = require('./lib/bugs');
 
 const siteNames = process.argv.splice(2 , process.argv.length);
 
@@ -15,13 +16,14 @@ const rankCrawler = async (siteNames) => {
         console.log('enter!!');
         await siteNames.forEach((site) => {
            if (site === 'melon') {
-               collectRankFromMelon(config[site].url, config[site].query);
+               collectRankFromMelon(config[site].url, config[site].query)
+                   .then(result => logger.debug(result));
            } else if (site == 'genie') {
                collectRankFromGenie(config[site].url, config[site].query)
-                   .then((result) => console.log(result));
+                   .then((result) => logger.debug(result));
            } else if (site == 'bugs') {
                collectRankFromBugs(config[site].url, config[site].query)
-                   .then(result => console.log(result))
+                   .then(result => logger.debug(result));
            } else {
                console.error("syntax error: Unavailable Sites.");
            }

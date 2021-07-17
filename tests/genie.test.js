@@ -1,4 +1,4 @@
-const crawler = require('../src/genie').collectRankFromGenie;
+const crawler = require('../lib/genie').collectRankFromGenie;
 const config = require('../config/configSite').genie;
 
 describe('genie tests',  () => {
@@ -6,7 +6,7 @@ describe('genie tests',  () => {
     const query = config.query;
 
     test('지니 1위 응답 테스트', async () => {
-        const rankList = await crawler(url);
+        const rankList = await crawler(url, query);
         expect(rankList[0]).toEqual({
             name: '바라만 본다',
             singer: 'MSG워너비 (M.O.M)',
@@ -14,16 +14,16 @@ describe('genie tests',  () => {
     });
 
     test('지니 50위 포함 테스트', async () => {
-        const rankList = await crawler(url);
+        const rankList = await crawler(url, query);
         expect(rankList).toContainEqual( {
-            name: 'Alcohol-Free',
-            singer: 'TWICE (트와이스)',
-            album: 'Taste of Love'
+            album: "신호등",
+            name: "신호등",
+            singer: "이무진"
         })
     });
 
     test('지니 50개 응답 테스트', async () => {
-        const rankList = await crawler(url);
+        const rankList = await crawler(url, query);
         expect(rankList.length).toBe(50)
     });
 })

@@ -1,4 +1,4 @@
-const crawler = require('../src/bugs').collectRankFromBugs;
+const crawler = require('../lib/bugs').collectRankFromBugs;
 const config = require('../config/configSite').bugs;
 
 describe('bugs tests', () => {
