@@ -1,0 +1,25 @@
+{
+  "name": "ranking-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": {
+    "name": "jongmin shin",
+    "email": "ace4463@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.10"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "jest": "^27.0.6",
+    "nock": "^13.1.1"
+  }
+}
